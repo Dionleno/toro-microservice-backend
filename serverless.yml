@@ -1,0 +1,33 @@
+service: toro-microservice-backend
+frameworkVersion: '3'
+plugins:
+  - serverless-plugin-typescript
+  - serverless-tscpaths
+  - serverless-offline-local-authorizers-plugin
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+custom:
+  authorizer:
+    azure:
+      name: custom-authorizer-lambda
+      identitySource: method.request.header.Authorization
+      type: request
+functions:
+  custom-authorizer-lambda:
+    handler: src/main/requests/authorization.handler
+
+  get-checking-account:
+    handler: src/main/requests/checkingAccount.getCheckingAccount
+    events:
+      - http:
+          path: /userPosition
+          method: get
+          cors: true
+          authorizer: ${self:custom.authorizer.azure}
+          localAuthorizer:
+            name: 'integrationAuthorizer'
+            type: 'request'
+
