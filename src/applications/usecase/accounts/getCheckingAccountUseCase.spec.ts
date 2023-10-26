@@ -1,19 +1,14 @@
+import { CheckingAccountWithActives, ICheckingAccountRepository } from "@applications/repositories/checkingAccountRepository";
 import { expect, test, describe } from "vitest";
-import { AccountEntity } from "../../entities/accountEntity";
-import { AccountSuccess } from "tests/data/accounts";
-import {
-  AccountData,
-  ICheckingAccountRepository,
-} from "../../repositories/checkingAccountRepository";
+import { AccountEntity } from "../../entities/accountEntity"; 
 import { GetCheckingAccountUseCase } from "./getCheckingAccountUseCase";
 
-export class CheckingAccountRepositoryStub
-  implements ICheckingAccountRepository
+export class CheckingAccountRepositoryStub implements ICheckingAccountRepository
 {
-  setBalance(account_id: number, value: number): void {}
-  async getAccount(account_id: number): Promise<AccountData> {
-    return AccountSuccess;
+  async getAccountByEmail(email: string): Promise<CheckingAccountWithActives> {
+    return
   }
+  setBalance(account_id: number, value: number): void {}
 }
 
 describe("[UseCase] getCheckingAccountUseCase", () => {
@@ -21,7 +16,7 @@ describe("[UseCase] getCheckingAccountUseCase", () => {
     const getCheckingAccount = new GetCheckingAccountUseCase(
       new CheckingAccountRepositoryStub()
     );
-    const account: AccountEntity = await getCheckingAccount.execute(10);
+    const account: AccountEntity = await getCheckingAccount.execute("dion@gmail.com");
 
     const consolidated = account.positions.reduce((prev, current) => {
         prev += current.currentPrice * current.amount
@@ -45,7 +40,7 @@ test("[UseCase] should get Checking Account data", async () => {
   const getCheckingAccount = new GetCheckingAccountUseCase(
     new CheckingAccountRepositoryStub()
   );
-  const account: AccountEntity = await getCheckingAccount.execute(10);
+  const account: AccountEntity = await getCheckingAccount.execute("dion@gmail.com");
 
   expect(account.positions).toBeInstanceOf(Array);
   expect(account.checkingAccountAmount).toBeTypeOf("number");
@@ -61,7 +56,7 @@ test("[UseCase] should consolidated calc", async () => {
   const getCheckingAccount = new GetCheckingAccountUseCase(
     new CheckingAccountRepositoryStub()
   );
-  const account: AccountEntity = await getCheckingAccount.execute(10);
+  const account: AccountEntity = await getCheckingAccount.execute("dion@gmail.com");
 
   const consolidated = account.positions.reduce((prev, current) => {
     prev += current.currentPrice * current.amount;

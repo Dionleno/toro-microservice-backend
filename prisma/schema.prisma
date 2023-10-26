@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-arm64-openssl-1.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+model clients {
+  id               Int                @id @unique @default(autoincrement())
+  fullname         String
+  email            String             @unique
+  created_at       DateTime           @default(now()) @db.Timestamptz()
+  checking_account checking_account[]
+
+   @@map("clients")
+}
+
+model checking_account {
+  id         Int       @id @unique @default(autoincrement())
+  account    Int       @unique @default(autoincrement())
+  balance    Float
+  created_at DateTime  @default(now()) @db.Timestamptz()
+  updated_at DateTime  @default(now()) @db.Timestamptz()
+  clients_id  Int
+  client     clients   @relation(fields: [clients_id], references: [id])
+  actives    actives[]
+  @@map("checking_account")
+}
+
+model status {
+  id          Int       @id @unique @default(autoincrement())
+  description String
+  actives     actives[]
+  @@map("status")
+}
+
+model actives {
+  id                 Int              @id @unique @default(autoincrement())
+  price              Float
+  amount             Int
+  created_at         DateTime          @default(now()) @db.Timestamptz()
+  updated_at         DateTime          @default(now()) @db.Timestamptz()
+  status             status           @relation(fields: [statusId], references: [id])
+  checking_account   checking_account @relation(fields: [checking_accountId], references: [id])
+  code               String
+  statusId           Int
+  checking_accountId Int
+
+  
+  @@map("actives")
+}
+ 

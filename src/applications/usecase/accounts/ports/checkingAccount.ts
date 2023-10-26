@@ -1,3 +1,14 @@
+export type PositionsData = {
+  amount: number;
+  symbol: string;
+  currentPrice: number;
+};
+export type CheckingAccountData = {
+  account: string;
+  checkingAccountAmount: number;
+  positions: Array<PositionsData>;
+  consolidated: number;
+};
 export interface IGetCheckingAccountUseCase {
-    execute(account_id: number): Promise<any>
+  execute(email: string): Promise<CheckingAccountData>;
 }

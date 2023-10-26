@@ -1,24 +1,23 @@
-
-import { AccountEntity } from "../../entities/accountEntity"
 import { ICheckingAccountRepository } from "../../repositories/checkingAccountRepository"
-import { IGetCheckingAccountUseCase } from "./ports/checkingAccount"
+import { CheckingAccountData, IGetCheckingAccountUseCase } from "./ports/checkingAccount"
 
 export class GetCheckingAccountUseCase implements IGetCheckingAccountUseCase{ 
     constructor(private repository: ICheckingAccountRepository) {}
-    async execute(account_id: number): Promise<AccountEntity> { 
-        const response = await this.repository.getAccount(account_id)
+    async execute(email: string): Promise<CheckingAccountData>{ 
+        const account = await this.repository.getAccountByEmail(email)
 
-        const consolidated = response.positions.reduce((prev, current) => {
-            prev += current.current_price * current.amount
+        const consolidated = account.actives.reduce((prev, current) => {
+            prev += current.price * current.amount
             return prev
         }, 0)
 
         return {
-            checkingAccountAmount: response.checking_account_amount,
-            positions: response.positions.map(a => ({
+            account: String(account.account).padStart(8, "0"),
+            checkingAccountAmount: account.balance,
+            positions: account.actives.map(a => ({
                 amount: a.amount,
-                symbol: a.symbol, 
-                currentPrice: a.current_price
+                symbol: a.code, 
+                currentPrice: a.price
             })),
             consolidated
         }

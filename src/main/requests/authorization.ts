@@ -1,9 +1,10 @@
-import { APIGatewayAuthorizerEvent, APIGatewayProxyCallback, Context } from "aws-lambda" 
+import { APIGatewayAuthorizerEvent, Context } from "aws-lambda" 
 
  
-export async function handler(event: any, context: Context, callback: APIGatewayProxyCallback) {
+export async function handler(event: any, context: Context, callback: any) {
   try { 
-    const authorizationHeader = event.headers['Authorization']
+
+    const authorizationHeader = event.headers['Authorization'] 
  
     if (!authorizationHeader) callback('Unauthorized')
 
@@ -17,7 +18,7 @@ export async function handler(event: any, context: Context, callback: APIGateway
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function buildAllowAllPolicy(event: APIGatewayAuthorizerEvent, context: any, AllowAccess) {
+function buildAllowAllPolicy(event: APIGatewayAuthorizerEvent, context: any, token) {
   var tmp = event.methodArn.split(':')
   var apiGatewayArnTmp = tmp[5].split('/')
   var awsAccountId = tmp[4]
@@ -38,8 +39,10 @@ function buildAllowAllPolicy(event: APIGatewayAuthorizerEvent, context: any, All
         },
       ],
     },
-    context: {}
-  }
+    context: {
+      authorizer: token
+    }
+  } 
 
   return policy
 }

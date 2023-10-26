@@ -27,8 +27,8 @@ export const badRequest = (data: any): HttpResponse => ({
   body: JSON.stringify(data),
 });
 
-export const serverError = (data: any): HttpResponse => ({
+export const serverError = (data: Error): HttpResponse => ({
   statusCode: 500,
   headers,
-  body: JSON.stringify(data),
+  body: data.message,
 });

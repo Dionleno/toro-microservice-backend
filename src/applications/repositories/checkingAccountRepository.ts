@@ -1,18 +1,13 @@
-export type ActionData = {
-    symbol: string;
-    amount: number,
-    current_price: number
+import { actives, checking_account, clients } from ".prisma/client"
+ 
+export type CheckingAccountWithActives = checking_account & {
+    actives?: actives[]
 }
-
-export type AccountData = {
-    account: string;
-    checking_account_amount: number;
-    positions: Array<ActionData>;
+export type ClientWithCheckingAccount = clients & {
+    checking_account: Array<CheckingAccountWithActives>
 }
-
-
 export interface ICheckingAccountRepository {
     setBalance(account_id: number, value: number): void
-    getAccount(account_id: number): Promise<AccountData> 
+    getAccountByEmail(email: string): Promise<CheckingAccountWithActives> 
 }
   

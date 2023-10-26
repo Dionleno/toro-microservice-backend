@@ -23,7 +23,7 @@ functions:
     handler: src/main/requests/checkingAccount.getCheckingAccount
     events:
       - http:
-          path: /userPosition
+          path: /accounts
           method: get
           cors: true
           authorizer: ${self:custom.authorizer.azure}

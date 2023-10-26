@@ -7,9 +7,11 @@ export class CheckingAccountController implements IController {
 
     async execute(event: HttpProxy): Promise<HttpResponse> {
         try {
-            const response = await this.getCheckingAccountUseCase.execute(10)
+            if(!event.decodeToken) throw new Error("Client unauthorize");
+            const claim = JSON.parse(event.decodeToken)
+            const response = await this.getCheckingAccountUseCase.execute(claim.email)
             return success(response)
-        } catch (error) {
+        } catch (error) { 
             return serverError(error)
         }
     }
