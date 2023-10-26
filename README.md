@@ -21,8 +21,9 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 O projeto tem como objetivo simular ambiente da toro investimentos.
 
 ## 🚀 Como executar
-
 - Clone o repositório e acesso o diretório
+
+#### Froentend está nesse repositório [toro-frontend](https://github.com/Dionleno/toro-frontend) 
 
 ### Arquitetura do projeto
 Foi provisionado essa arquitetura no AWS cloud, foi utilizado as seguintes tecnologias:
