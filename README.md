@@ -33,8 +33,8 @@ Foi provisionado essa arquitetura no AWS cloud, foi utilizado as seguintes tecno
 - AWS RDS
 - AWS S3
 - OAUTH0 para autenticação
-  
-![image](https://github.com/Dionleno/toro-microservice-backend/assets/19779057/0974a950-7a87-4a2a-80ad-13368313ca77)
+
+![image](https://github.com/Dionleno/toro-microservice-backend/assets/19779057/7151b0be-12db-4b1a-becd-ea9cc243c96f)
 
 ### Para rodar localmente
 - Rode `npm install` ou `npm i` para instalar as dependências
