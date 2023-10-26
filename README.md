@@ -32,6 +32,7 @@ Foi provisionado essa arquitetura no AWS cloud, foi utilizado as seguintes tecno
 - AWS IAM
 - AWS RDS
 - AWS S3
+- AWS CloudWatch
 - OAUTH0 para autenticação
 
 ![image](https://github.com/Dionleno/toro-microservice-backend/assets/19779057/7151b0be-12db-4b1a-becd-ea9cc243c96f)
@@ -49,3 +50,6 @@ O arquivo .env contém as variaveis necessarias para executar a aplicação loca
 
 ### Para fazer o deploy
 Foi configurado uma esteira de desenvolvimento integrado com o CI/CD, para fazer o deploy no ambiente, basta fazer o merge na branch main.
+
+### Modelagem database
+<img width="555" alt="Captura de Tela 2023-10-26 às 17 33 04" src="https://github.com/Dionleno/toro-microservice-backend/assets/19779057/6c8f04ce-88cf-4154-98b5-df165c0f473e">
