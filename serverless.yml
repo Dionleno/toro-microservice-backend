@@ -3,22 +3,24 @@ frameworkVersion: '3'
 plugins:
   - serverless-plugin-typescript
   - serverless-tscpaths
+  - serverless-plugin-common-excludes
+  - serverless-plugin-include-dependencies
   - serverless-offline-local-authorizers-plugin
   - serverless-offline
 
 package:
   individually: true
-  excludeDevDependencies: true
+  excludeDevDependencies: false
   patterns:
-    - '!**/'
-    - '!src/**/*.ts'
-    - src/**
-    - prisma/**
+    - '!node_modules/**' # no need to add this, this plugin does it for you
 
 provider:
   name: aws
   runtime: nodejs18.x
+
 custom:
+  includeDependencies:
+    enableCaching: true
   authorizer:
     azure:
       name: custom-authorizer-lambda
