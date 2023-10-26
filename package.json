@@ -11,7 +11,8 @@
       "db:migrate": "prisma migrate deploy",
       "db:reset": "prisma migrate reset --skip-seed --force",
       "db:seed": "ts-node prisma/seed/seed.ts",
-      "deploy:production": "serverless deploy --stage production"
+      "deploy:production": "serverless deploy --stage production",
+      "postinstall": "patch-package"
    },
    "keywords": [],
    "author": "",
@@ -22,30 +23,27 @@
       "@typescript-eslint/eslint-plugin": "^6.8.0",
       "@typescript-eslint/parser": "^6.8.0",
       "eslint": "^8.52.0",
-      "prisma": "^4.16.2",
       "serverless-offline": "^13.2.0",
-      "serverless-offline-local-authorizers-plugin": "^1.2.0",
-      "serverless-plugin-common-excludes": "^4.0.0",
-      "serverless-plugin-include-dependencies": "^5.1.0",
-      "serverless-plugin-typescript": "^2.1.5",
+      "serverless-offline-local-authorizers-plugin": "^1.2.0", 
       "serverless-tscpaths": "^0.0.8",
       "serverless-webpack": "^5.13.0",
-      "serverless-webpack-prisma": "1.2.0",
-      "ts-loader": "^9.5.0",
+      "serverless-webpack-prisma": "1.1.1",
+      "ts-loader": "^9.4.4",
       "ts-node": "10.7.0",
       "ts-node-dev": "^2.0.0",
       "tsconfig-paths-webpack-plugin": "^4.1.0",
-      "typescript": "4.5.2",
+      "typescript": "^5.1.6",
       "vitest": "^0.34.6",
+      "patch-package": "^7.0.0",
       "webpack-node-externals": "^3.0.0"
    },
    "dependencies": {
       "@prisma/client": "^5.2.0",
+      "copy-webpack-plugin": "^11.0.0",
       "aws-lambda": "^1.0.7",
       "dotenv": "^16.3.1",
       "dotenv-flow": "^4.0.0",
       "pg": "^8.4.0",
-      "reflect-metadata": "^0.1.13",
-      "typeorm": "0.3.5"
+      "reflect-metadata": "^0.1.13"
    }
 }

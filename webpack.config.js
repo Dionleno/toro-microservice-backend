@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */ 
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const path = require('path')
 const slsw = require('serverless-webpack')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
@@ -26,7 +27,14 @@ module.exports = {
     filename: '[name].js',
   },
   plugins: [
-
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'prisma/schema.prisma',
+          to: 'prisma/schema.prisma',
+        },
+      ],
+    }),
   ],
   module: {
     rules: [

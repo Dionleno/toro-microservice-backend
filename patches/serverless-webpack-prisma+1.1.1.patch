@@ -1,0 +1,48 @@
+diff --git a/node_modules/serverless-webpack-prisma/src/index.js b/node_modules/serverless-webpack-prisma/src/index.js
+index 6de6d7d..8ab7ea3 100644
+--- a/node_modules/serverless-webpack-prisma/src/index.js
++++ b/node_modules/serverless-webpack-prisma/src/index.js
+@@ -9,22 +9,22 @@ const _ = require('lodash');
+ class ServerlessWebpackPrisma {
+   engines = [
+     'node_modules/.prisma/client/libquery_engine*',
+-    '!node_modules/.prisma/client/libquery_engine-rhel*',
++    '!node_modules/.prisma/client/libquery_engine-linux-arm64*',
+ 
+     'node_modules/prisma/libquery_engine*',
+-    '!node_modules/prisma/libquery_engine-rhel*',
++    // '!node_modules/prisma/libquery_engine-linux-arm64*',
+ 
+     'node_modules/@prisma/engines/libquery_engine*',
+-    '!node_modules/@prisma/engines/libquery_engine-rhel*',
++    // '!node_modules/@prisma/engines/libquery_engine-linux-arm64*',
+ 
+     'node_modules/@prisma/engines/migration-engine*',
+-    '!node_modules/@prisma/engines/migration-engine-rhel*',
++    // '!node_modules/@prisma/engines/migration-engine-linux-arm64*',
+ 
+     'node_modules/@prisma/engines/prisma-fmt*',
+-    '!node_modules/@prisma/engines/prisma-fmt-rhel*',
++    // '!node_modules/@prisma/engines/prisma-fmt-linux-arm64*',
+ 
+     'node_modules/@prisma/engines/introspection-engine*',
+-    '!node_modules/@prisma/engines/introspection-engine-rhel*',
++    // '!node_modules/@prisma/engines/introspection-engine-linux-arm64*',
+   ];
+ 
+   constructor(serverless, options) {
+@@ -39,12 +39,12 @@ class ServerlessWebpackPrisma {
+ 
+   onBeforeWebpackPackage() {
+     const servicePath = this.getSchemaPath();
+-    const prismaDir = join(servicePath, 'prisma');
++    // const prismaDir = join(servicePath, 'prisma');
+     const functionNames = this.getFunctionNamesForProcess();
+     for (const functionName of functionNames) {
+       const cwd = join(servicePath, '.webpack', functionName);
+       if (this.getDepsParam()) this.installPrismaPackage({ cwd });
+-      this.copyPrismaSchemaToFunction({ functionName, cwd, prismaDir });
++      // this.copyPrismaSchemaToFunction({ functionName, cwd, prismaDir });
+       this.generatePrismaSchema({ functionName, cwd });
+       this.deleteUnusedEngines({ functionName, cwd });
+       if (this.getDepsParam()) this.removePrismaPackage({ cwd });

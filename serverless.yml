@@ -4,17 +4,15 @@ plugins:
   # - serverless-plugin-typescript
   - serverless-tscpaths
   - serverless-webpack
-  - serverless-webpack-prisma
-  - serverless-plugin-common-excludes
-  - serverless-plugin-include-dependencies
+  - serverless-webpack-prisma 
   - serverless-offline-local-authorizers-plugin
   - serverless-offline
 
 package:
-  individually: true
-  excludeDevDependencies: false
+  excludeDevDependencies: true
   patterns:
     - '!node_modules/**' # no need to add this, this plugin does it for you
+    - 'prisma/**/*'
 
 provider:
   name: aws
@@ -22,16 +20,19 @@ provider:
 
 custom:
   webpack:
-    # webpackConfig: ./webpack.config.js
-    includeModules: false  
+    webpackConfig: ./webpack.config.js
+    includeModules: true  
     packagerOptions:
       scripts:
-        - prisma generate  
+        - prisma generate   
+  prisma:
+    installDeps: true        
   authorizer:
     azure:
       name: custom-authorizer-lambda
       identitySource: method.request.header.Authorization
       type: request
+
 functions:
   custom-authorizer-lambda:
     handler: src/main/requests/authorization.handler
