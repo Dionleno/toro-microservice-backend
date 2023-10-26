@@ -1,4 +1,6 @@
-import { actives, checking_account, clients } from ".prisma/client"
+import { actives, checking_account, clients } from "@prisma/client"
+
+ 
  
 export type CheckingAccountWithActives = checking_account & {
     actives?: actives[]
