@@ -1,8 +1,10 @@
 service: toro-microservice-backend
 frameworkVersion: '3'
 plugins:
-  - serverless-plugin-typescript
+  # - serverless-plugin-typescript
   - serverless-tscpaths
+  - serverless-webpack
+  - serverless-webpack-prisma
   - serverless-plugin-common-excludes
   - serverless-plugin-include-dependencies
   - serverless-offline-local-authorizers-plugin
@@ -19,8 +21,12 @@ provider:
   runtime: nodejs18.x
 
 custom:
-  includeDependencies:
-    enableCaching: true
+  webpack:
+    # webpackConfig: ./webpack.config.js
+    includeModules: false  
+    packagerOptions:
+      scripts:
+        - prisma generate  
   authorizer:
     azure:
       name: custom-authorizer-lambda
