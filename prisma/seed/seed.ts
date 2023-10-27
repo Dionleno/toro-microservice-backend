@@ -4,7 +4,8 @@ import { ActivesMock } from "./data/actives";
 import { ClientsMock } from "./data/clients";
 import { StatusMock } from "./data/status";
 
-const prisma = new PrismaClient({ datasources: { db: { url: 'postgresql://username:password@localhost:5432/toro?schema=public' } } })
+
+const prisma = new PrismaClient({ datasources: { db: { url: process.env["DATABASE_URL"] } } })
 async function runSeeders() {
   //clients
   await Promise.all(
